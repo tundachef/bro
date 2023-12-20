@@ -1,3 +1,4 @@
 web3
 eth-keys
-mythril==0.24.3
+mythril==0.21.15
+eth-hash==0.2.0
