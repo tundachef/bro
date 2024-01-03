@@ -1,0 +1,46 @@
+# Use Ubuntu as the base image
+FROM ubuntu:20.04
+
+# Update and install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get install -y python3.5 python3.5-dev python3-pip git
+
+# Set the working directory to /app
+WORKDIR /app
+
+RUN cd /app
+
+RUN git config --global core.compression 9
+
+# Clone the repository
+RUN git clone https://github.com/b-mueller/scrooge-mcetherface .
+
+# RUN pip install theo==0.3.3
+
+# Create and activate a virtual environment
+# RUN pip install virtualenv
+# RUN virtualenv venv
+# RUN /bin/bash -c "source venv/bin/activate"
+
+# Copy the requirements file to the working directory
+# COPY requirements.txt /app/
+
+# Install any needed packages specified in requirements.txt
+# RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
+
+RUN cp config.ini.example config.ini
+
+# Run pip install -e .
+# RUN pip install -e .
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
+# Define environment variable
+ENV NAME World
+
+# Command to run your package
+CMD ["python", "./theo.py"]
