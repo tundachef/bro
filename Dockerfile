@@ -25,6 +25,11 @@ RUN virtualenv venv && \
 # For example, if your SQLite database is stored in the "data" directory:
 RUN chmod a+rw /app /app/*
 
+# to solve issue https://github.com/cleanunicorn/theo/issues/11
+# Create .mythril directory and signatures.db file
+RUN mkdir -p $HOME/.mythril && \
+    touch $HOME/.mythril/signatures.db
+
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
